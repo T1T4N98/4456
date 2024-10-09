@@ -1,0 +1,52 @@
+Задание 3-8
+1) echo $((1697 % 13)) 
+2) echo $((772 % -45))
+3) echo $(( -568 % 12 ))
+4) echo $(( -5437 % -17 ))
+
+Задание 3-9
+#!/bin/bash
+
+unsigned_negation() {
+    local num=$1
+    echo $(( (~num) & 0xFFFF ))
+}
+
+signed_negation() {
+    local num=$1
+    if (( num >= 0 && num <= 32767 )); then
+        echo $(( (~num) & 0xFFFF ))
+    else
+        echo $(( ~num + 65536 ))
+    fi
+}
+
+numbers=(56 1018 58362)
+
+echo "Побитовое отрицание для беззнаковых целых:"
+for num in "${numbers[@]}"; do
+    result=$(unsigned_negation $num)
+    echo "Побитое отрицание $num: $result"
+done
+
+echo "Побитовое отрицание для знаковых целых:"
+for num in "${numbers[@]}"; do
+    result=$(signed_negation $num)
+    echo "Побитое отрицание $num: $result"
+done
+
+
+Задание 3-10
+echo "obase=2; 1122 & 908" | bc -l
+echo "obase=2; 1122 | 908" | bc -l
+echo "obase=2; 1122 ^ 908" | bc -l
+echo "obase=2; 49608 & 33036" | bc -l
+echo "obase=2; 49608 | 33036" | bc -l
+echo "obase=2; 49608 ^ 33036" | bc -l
+
+Задание 3-11
+echo $(( 25649 >> 3 ))
+echo $(( 25649 << 2 ))
+echo $(( 9154 >> 4 ))
+echo $(( 9154 << 3 ))
+
